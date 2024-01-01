@@ -38,18 +38,18 @@ class UserFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.getUser().collect { user ->
+                    viewModel.user.collect {
                         Glide
                                 .with(binding.profilePic)
-                                .load(user.picture.large)
+                                .load(it.picture?.large)
                                 .placeholder(R.drawable.ic_downloading_black_24dp)
                                 .error(R.drawable.ic_error_black_24dp)
                                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                                 .priority(Priority.HIGH)
                                 .into(binding.profilePic)
-                        binding.name.text = user.name.last.plus(", ").plus(user.name.first)
-                        binding.city.text = user.location.city
-                        binding.email.text = user.email
+                        binding.name.text = it.name?.last.plus(", ").plus(it.name?.first)
+                        binding.city.text = it.location?.city
+                        binding.email.text = it.email
                     }
                 }
             }

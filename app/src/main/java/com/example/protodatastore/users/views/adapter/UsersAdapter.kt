@@ -22,10 +22,10 @@ class UsersAdapter(
     inner class ViewHolder(private val binding: ItemUserBinding) :
             RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
-            binding.name.text = user.name.last.plus(", ").plus(user.name.first)
+            binding.name.text = user.name?.last.plus(", ").plus(user.name?.first)
             Glide
                     .with(binding.profilePic)
-                    .load(user.picture.large)
+                    .load(user.picture?.large)
                     .placeholder(R.drawable.ic_downloading_black_24dp)
                     .error(R.drawable.ic_error_black_24dp)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)

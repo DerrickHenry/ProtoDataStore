@@ -19,10 +19,10 @@ class UserPrefsProtoDataStoreManagerImpl @Inject constructor(
     override suspend fun saveUserToProtoDataStore(user: User) {
         protoDataStore.updateData { currentUser ->
             currentUser.toBuilder()
-                    .setFirstName(user.name.first)
-                    .setLastName(user.name.last)
-                    .setCity(user.location.city)
-                    .setProfilePic(user.picture.large)
+                    .setFirstName(user.name?.first)
+                    .setLastName(user.name?.last)
+                    .setCity(user.location?.city)
+                    .setProfilePic(user.picture?.large)
                     .build()
         }
 

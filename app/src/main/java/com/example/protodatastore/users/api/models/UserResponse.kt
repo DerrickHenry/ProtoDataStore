@@ -5,10 +5,10 @@ data class UserResponse(
 )
 
 data class User(
-        val name: UserName,
-        val location: UserLocation,
+        val name: UserName? = null,
+        val location: UserLocation? = null,
         val email: String = "",
-        val picture: UserPicture
+        val picture: UserPicture? = null
 )
 
 data class UserName(
