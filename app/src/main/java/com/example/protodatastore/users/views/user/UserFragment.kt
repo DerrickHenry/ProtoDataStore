@@ -14,6 +14,9 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.protodatastore.R
 import com.example.protodatastore.databinding.FragmentUserBinding
+import com.example.protodatastore.users.api.Resource
+import com.example.protodatastore.users.api.models.User
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -38,22 +41,44 @@ class UserFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.user.collect {
-                        Glide
-                                .with(binding.profilePic)
-                                .load(it.picture?.large)
-                                .placeholder(R.drawable.ic_downloading_black_24dp)
-                                .error(R.drawable.ic_error_black_24dp)
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .priority(Priority.HIGH)
-                                .into(binding.profilePic)
-                        binding.name.text = it.name?.last.plus(", ").plus(it.name?.first)
-                        binding.city.text = it.location?.city
-                        binding.email.text = it.email
+                    viewModel.user.collect { resource ->
+                        when (resource) {
+                            is Resource.Error -> showErrorUi(resource.message)
+                            is Resource.Loading -> showLoadingUi()
+                            is Resource.Success -> showUserUi(resource.data)
+                        }
                     }
                 }
             }
         }
+    }
+
+    private fun showUserUi(user: User?) {
+        if (user != null) {
+            Glide.with(binding.profilePic)
+                    .load(user.picture!!.large)
+                    .placeholder(R.drawable.ic_downloading_black_24dp)
+                    .error(R.drawable.ic_error_black_24dp)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .priority(Priority.HIGH)
+                    .into(binding.profilePic)
+            binding.name.text = user.name!!.last.plus(", ").plus(user.name.first)
+            binding.city.text = user.location!!.city
+            binding.email.text = user.email
+        } else {
+            showErrorUi(getString(R.string.something_went_wrong))
+        }
+        binding.progressBar.visibility = View.GONE
+    }
+
+    private fun showErrorUi(message: String?) {
+        Snackbar.make(binding.root, message
+                ?: getString(R.string.something_went_wrong), Snackbar.LENGTH_SHORT).show()
+        binding.progressBar.visibility = View.GONE
+    }
+
+    private fun showLoadingUi() {
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {

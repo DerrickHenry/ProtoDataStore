@@ -61,7 +61,7 @@ class UsersFragment : Fragment() {
                         when (resource) {
                             is Resource.Error -> showErrorUi(resource.message)
                             is Resource.Loading -> showLoadingUi()
-                            is Resource.Success -> submitUsersToAdapter(resource.response)
+                            is Resource.Success -> submitUsersToAdapter(resource.data)
                         }
                     }
                 }
@@ -70,11 +70,6 @@ class UsersFragment : Fragment() {
     }
 
     private fun submitUsersToAdapter(users: List<User>?) {
-        if (users.isNullOrEmpty().not()) {
-            adapter.submitList(users)
-        } else {
-            showErrorUi("Sorry, no users")
-        }
         binding.progressBar.visibility = View.GONE
     }
 
