@@ -17,4 +17,5 @@ abstract class UserPrefsProtoDataStoreManagerModule {
     abstract fun bindUserPrefsProtoDataStoreManager(
             impl: UserPrefsProtoDataStoreManagerImpl
     ): IUserPrefsProtoDataStoreManager
+
 }

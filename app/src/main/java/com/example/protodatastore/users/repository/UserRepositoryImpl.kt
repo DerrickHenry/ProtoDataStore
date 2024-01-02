@@ -4,7 +4,6 @@ import com.example.protodatastore.users.api.models.User
 import com.example.protodatastore.users.api.service.UserApi
 import com.example.protodatastore.users.datastore.IUserPrefsProtoDataStoreManager
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
@@ -12,7 +11,7 @@ class UserRepositoryImpl @Inject constructor(
         private val protoDataStoreMng: IUserPrefsProtoDataStoreManager
 ) : IUserRepository {
     override suspend fun getUsers(): List<User> {
-        return userApi.getUsers(results = "100").results
+        return userApi.getUsers(results = "1000").results
     }
 
     override suspend fun getUserFromProtoDataStore(): Flow<User> {
