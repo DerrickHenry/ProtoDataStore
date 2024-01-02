@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,6 +43,16 @@ class UserViewModel @Inject constructor(
                         data = repository.getUserFromProtoDataStore().first()
                 ))
             }
+        }
+    }
+
+    fun formatDate(date: String?): String {
+        val dateTimeFormatter = DateTimeFormat.forPattern("MMMM yyyy")
+        return try {
+            DateTime.parse(date, DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")) // Parse original date
+                    .toString(dateTimeFormatter) // Format as month and year
+        } catch (e: IllegalArgumentException) {
+            "n/a" // Handle parsing errors
         }
     }
 }

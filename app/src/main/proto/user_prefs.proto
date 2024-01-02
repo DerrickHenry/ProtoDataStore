@@ -8,4 +8,5 @@ message UserPreferences {
   string last_name = 2;
   string city = 3;
   string profile_pic = 4;
+  string date_registered = 5;
 }

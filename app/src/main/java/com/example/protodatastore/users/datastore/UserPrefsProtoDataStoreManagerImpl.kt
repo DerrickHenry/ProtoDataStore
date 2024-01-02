@@ -6,6 +6,7 @@ import com.example.protodatastore.users.api.models.User
 import com.example.protodatastore.users.api.models.UserLocation
 import com.example.protodatastore.users.api.models.UserName
 import com.example.protodatastore.users.api.models.UserPicture
+import com.example.protodatastore.users.api.models.UserRegistered
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -23,6 +24,7 @@ class UserPrefsProtoDataStoreManagerImpl @Inject constructor(
                     .setLastName(user.name?.last)
                     .setCity(user.location?.city)
                     .setProfilePic(user.picture?.large)
+                    .setDateRegistered(user.registered?.date)
                     .build()
         }
 
@@ -34,7 +36,8 @@ class UserPrefsProtoDataStoreManagerImpl @Inject constructor(
             User(
                     name = UserName(first = it.firstName, last = it.lastName),
                     location = UserLocation(city = it.city),
-                    picture = UserPicture(it.profilePic)
+                    picture = UserPicture(it.profilePic),
+                    registered = UserRegistered(it.dateRegistered)
             )
 
         }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -65,6 +66,7 @@ class UserFragment : Fragment() {
             binding.name.text = user.name!!.last.plus(", ").plus(user.name.first)
             binding.city.text = user.location!!.city
             binding.email.text = user.email
+            binding.joined.text = getString(R.string.date_joined, viewModel.formatDate(user.registered?.date))
         } else {
             showErrorUi(getString(R.string.something_went_wrong))
         }
@@ -72,8 +74,7 @@ class UserFragment : Fragment() {
     }
 
     private fun showErrorUi(message: String?) {
-        Snackbar.make(binding.root, message
-                ?: getString(R.string.something_went_wrong), Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.root, message ?: getString(R.string.something_went_wrong), Snackbar.LENGTH_SHORT).show()
         binding.progressBar.visibility = View.GONE
     }
 

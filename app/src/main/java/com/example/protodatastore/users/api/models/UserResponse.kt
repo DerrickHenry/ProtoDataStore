@@ -9,8 +9,9 @@ data class User(
         val location: UserLocation? = null,
         val email: String = "",
         val picture: UserPicture? = null,
-        val dob: Age? = null,
-        val gender: String = ""
+        val dob: UserDob? = null,
+        val gender: String = "",
+        val registered: UserRegistered? = null
 )
 
 data class UserName(
@@ -22,4 +23,6 @@ data class UserLocation(val city: String)
 
 data class UserPicture(val large: String)
 
-data class Age(val age: Int)
+data class UserDob(val age: Int)
+
+data class UserRegistered(val date: String)

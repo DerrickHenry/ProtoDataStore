@@ -21,7 +21,6 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.mockito.kotlin.any
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class UserViewModelTest {
@@ -62,5 +61,19 @@ class UserViewModelTest {
         val actualUser = viewModel.user.value.data
 
         assertEquals(expectedMockProtoUser, actualUser)
+    }
+
+    @Test
+    fun `test formatDate with valid date`() {
+        val date = "2023-10-26T00:00:00.000Z"
+        val formattedDate = viewModel.formatDate(date)
+        assertEquals("October 2023", formattedDate)
+    }
+
+    @Test
+    fun `test formatDate with invalid date`() {
+        val date = "invalid date"
+        val formattedDate = viewModel.formatDate(date)
+        assertEquals("n/a", formattedDate)
     }
 }

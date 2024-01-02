@@ -36,6 +36,8 @@ class UsersViewModel @Inject constructor(
         viewModelScope.launch {
             _users.value = Resource.Loading()
             viewModelScope.launch(usersCoroutineExceptionHandler) {
+                val users = repository.getUsers()
+                println(users)
                 _users.value = Resource.Success(
                         data = repository.getUsers()
                 )
