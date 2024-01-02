@@ -42,7 +42,6 @@ class UserViewModelTest {
         unmockkAll()
     }
 
-
     @Test
     fun `should get user from proto data store and emit success state`() = runTest {
         val expectedMockProtoUser = User(

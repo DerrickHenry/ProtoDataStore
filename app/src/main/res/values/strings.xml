@@ -2,4 +2,5 @@
     <string name="app_name">ProtoDataStore</string>
     <string name="something_went_wrong">Something went wrong.</string>
     <string name="date_joined">Joined %1$s</string>
+    <string name="last_name_first_name">%1$s, %2$s</string>
 </resources>
