@@ -1,5 +1,6 @@
 package com.example.protodatastore.users.views.user
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.protodatastore.users.api.Resource
@@ -31,7 +32,8 @@ class UserViewModel @Inject constructor(
         getUser()
     }
 
-    private fun getUser() {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun getUser() {
         viewModelScope.launch {
             _user.emit(Resource.Loading())
             viewModelScope.launch(userCoroutineExceptionHandler) {
