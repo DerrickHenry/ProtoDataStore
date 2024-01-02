@@ -67,6 +67,7 @@ class UserFragment : Fragment() {
             binding.city.text = user.location!!.city
             binding.email.text = user.email
             binding.joined.text = getString(R.string.date_joined, viewModel.formatDate(user.registered?.date))
+            binding.age.text = getString(R.string.age, user.dob!!.age.toString())
         } else {
             showErrorUi(getString(R.string.something_went_wrong))
         }

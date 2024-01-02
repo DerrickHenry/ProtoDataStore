@@ -25,6 +25,7 @@ class UserPrefsProtoDataStoreManagerImpl @Inject constructor(
                     .setCity(user.location?.city)
                     .setProfilePic(user.picture?.large)
                     .setDateRegistered(user.registered?.date)
+                    .setAge(user.dob?.age)
                     .build()
         }
 
@@ -37,7 +38,8 @@ class UserPrefsProtoDataStoreManagerImpl @Inject constructor(
                     name = UserName(first = it.firstName, last = it.lastName),
                     location = UserLocation(city = it.city),
                     picture = UserPicture(it.profilePic),
-                    registered = UserRegistered(it.dateRegistered)
+                    registered = UserRegistered(it.dateRegistered),
+                    age = UserRegistered(it.age)
             )
 
         }

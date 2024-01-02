@@ -36,10 +36,15 @@ class UsersViewModel @Inject constructor(
         viewModelScope.launch {
             _users.value = Resource.Loading()
             viewModelScope.launch(usersCoroutineExceptionHandler) {
+                // filter for all women over age of 40 and joined after 2019
                 val users = repository.getUsers()
+                val usersFemalesOver40 = users.filter { user ->
+                    (user.gender == "female") && ((user.dob?.age ?: 0) > 40)
+                }
+
                 println(users)
                 _users.value = Resource.Success(
-                        data = repository.getUsers()
+                        data = usersFemalesOver40
                 )
             }
         }
