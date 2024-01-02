@@ -9,5 +9,5 @@ message UserPreferences {
   string city = 3;
   string profile_pic = 4;
   string date_registered = 5;
-  int64 age = 6;
+  int32 age = 6;
 }
