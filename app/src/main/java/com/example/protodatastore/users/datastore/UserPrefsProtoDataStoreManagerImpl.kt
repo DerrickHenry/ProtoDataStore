@@ -3,6 +3,7 @@ package com.example.protodatastore.users.datastore
 import androidx.datastore.core.DataStore
 import com.example.protodatastore.UserPreferences
 import com.example.protodatastore.users.api.models.User
+import com.example.protodatastore.users.api.models.UserDob
 import com.example.protodatastore.users.api.models.UserLocation
 import com.example.protodatastore.users.api.models.UserName
 import com.example.protodatastore.users.api.models.UserPicture
@@ -25,7 +26,7 @@ class UserPrefsProtoDataStoreManagerImpl @Inject constructor(
                     .setCity(user.location?.city)
                     .setProfilePic(user.picture?.large)
                     .setDateRegistered(user.registered?.date)
-                    .setAge(user.dob?.age)
+                    .setAge(user.dob?.age ?: 0)
                     .build()
         }
 
@@ -39,7 +40,7 @@ class UserPrefsProtoDataStoreManagerImpl @Inject constructor(
                     location = UserLocation(city = it.city),
                     picture = UserPicture(it.profilePic),
                     registered = UserRegistered(it.dateRegistered),
-                    age = UserRegistered(it.age)
+                    dob = UserDob(it.age)
             )
 
         }
